@@ -9,7 +9,11 @@ class VectorDbManager:
     __dense_embeddings: HuggingFaceEmbeddings
     __sparse_embeddings: FastEmbedSparse
     def __init__(self):
-        self.__client = QdrantClient(path=config.QDRANT_DB_PATH)
+        # Prefer Qdrant Server (Docker/Cluster) over local file storage
+        if config.QDRANT_HOST:
+            self.__client = QdrantClient(url=f"http://{config.QDRANT_HOST}:{config.QDRANT_PORT}")
+        else:
+            self.__client = QdrantClient(path=config.QDRANT_DB_PATH)
         self.__dense_embeddings = HuggingFaceEmbeddings(model_name=config.DENSE_MODEL)
         self.__sparse_embeddings = FastEmbedSparse(model_name=config.SPARSE_MODEL)
 
