@@ -1,5 +1,5 @@
 import uuid
-from langchain_ollama import ChatOllama
+from langchain_google_genai import ChatGoogleGenerativeAI
 import config
 from db.vector_db_manager import VectorDbManager
 from db.parent_store_manager import ParentStoreManager
@@ -24,7 +24,7 @@ class RAGSystem:
         self.vector_db.create_collection(self.collection_name)
         collection = self.vector_db.get_collection(self.collection_name)
 
-        llm = ChatOllama(model=config.LLM_MODEL, temperature=config.LLM_TEMPERATURE)
+        llm = ChatGoogleGenerativeAI(model=config.LLM_MODEL, temperature=config.LLM_TEMPERATURE)
         tools = ToolFactory(collection).create_tools()
         self.agent_graph = create_agent_graph(llm, tools)
 

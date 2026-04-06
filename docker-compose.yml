@@ -1,0 +1,17 @@
+services:
+  app:
+    build: .
+    container_name: rag-assistant
+    ports:
+      - "7860:7860"
+    volumes:
+      - ./project:/app/project
+      - ./scripts:/app/scripts
+      - ./qdrant_db:/app/qdrant_db
+      - ./parent_store:/app/parent_store
+      - ./markdown_docs:/app/markdown_docs
+    env_file:
+      - project/.env
+    restart: unless-stopped
+
+# Removed ollama volumes as we now use Gemini (Cloud API)

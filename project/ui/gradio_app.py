@@ -16,7 +16,7 @@ def create_gradio_ui():
     def format_file_list():
         files = doc_manager.get_markdown_files()
         if not files:
-            return "📭 No documents available in the knowledge base"
+            return "📭 Nopoooo documents available in the knowledge base"
         return "\n".join([f"{f}" for f in files])
     
     def upload_handler(files, progress=gr.Progress()):
